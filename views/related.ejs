@@ -11,16 +11,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <nav>
-      <div class="navbar-wrapper">
-        <a href="" class="brand-logo center">
-          <img src="/camera-72-183025.png" alt="">
-        </a>
-        <ul class="right">
-          <li><a href="" class="btn">登入</a></li>
-        </ul>
-      </div>
-    </nav>
+    <%- include('nav') %>
     <div class="container">
         <h2 class="center">相關圖片</h2>
         <div class="row">
@@ -38,13 +29,7 @@
             <% } %>
         </div>
     </div>
-    <footer class=" page-footer center">
-        <div class="footer-copyright">
-            <div class="container">
-            © Copyright 
-            </div>
-        </div>
-    </footer>
+    <%- include('footer') %>
   </body>
 </html>
 =======
