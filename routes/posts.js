@@ -7,6 +7,10 @@ router.get('/', function(req, res, next) {
   res.render('post', {title: 'posts'});
 });
 
+router.get('/new', function(req, res, next) {
+  res.render('new', {title: 'new'});
+});
+
 router.get('/:postId', function(req, res, next) {
   res.send('This is ' + req.params.postId + '\'s  page.');
 });

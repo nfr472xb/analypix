@@ -14,7 +14,7 @@ main {
   flex: 1 0 auto;
 }
 
-.nav-wrapper {
+.nav-wrapper, .page-footer{
     background-color: #26c6da !important;
   }
 
@@ -31,12 +31,16 @@ li {font-weight: 600;}
 }
 
 .user-container {
-
+  margin-left:3em;
 }
 .location-container {
-
+  margin-left:3em;
 }
 .tag-container {
+  margin-left:3em;
+}
 
+.add-file-container {
+  min-height: 60%;
 }
 
