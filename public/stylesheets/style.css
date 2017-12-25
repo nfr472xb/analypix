@@ -1,17 +1,25 @@
+
 * {
   box-sizing: border-box;
 
 }
 body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  background: #e2e1e0;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    font-family: 微軟正黑體;
 }
 
 main {
   flex: 1 0 auto;
 }
+
+.nav-wrapper {
+    background-color: #26c6da !important;
+  }
+
+
+li {font-weight: 600;}
 
 .posts {
   background: white;
@@ -32,3 +40,4 @@ main {
 .tag-container {
 
 }
+
