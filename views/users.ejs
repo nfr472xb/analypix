@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.2/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.2/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <nav>
+      <div class="navbar-wrapper">
+        <a href="" class="brand-logo center">
+          <img src="/camera-72-183025.png" alt="">
+        </a>
+        <ul class="right">
+          <li><a href="" class="btn-large">+</a></li>
+          <li>UserAccount</li>
+          <li><a href="" class="btn">登出</a></li>
+        </ul>
+
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <% for(var i = 0; i <= 6; i++) { %>
+        <div class="col s4">
+            <div class="posts">
+              <div class="img-container center">
+                  <img src="http://fakeimg.pl/250x250/ff0000" alt="" class="">
+              </div>
+                <div class="user-container">
+                  <a href="">
+                      <span>userAccount</span>
+                  </a>
+                </div>
+                <div class="location-container">
+                  <a href=""><!-- catch every post location -->
+                      <span><i class="material-icons">location_on</i>Taipei</span>
+                  </a>
+                </div>
+                <div class="tag-container">
+                  <a href="">#tag</a>
+                  <a href="">#tag</a>
+                  <a href="">#tag</a>
+                </div>
+            </div>
+            
+        </div>
+        <% } %>
+      </div>
+    </div>
+    <footer class=" page-footer center">
+        <div class="footer-copyright">
+            <div class="container">
+            © Copyright 
+            </div>
+          </div>
+</footer>
+  </body>
+</html>
