@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/javascripts/dropzone.js"></script>
+    <link rel='stylesheet' href='/stylesheets/materialize.min.css' />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/dropzone.css' />
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+    <script src="/javascripts/materialize.min.js"></script>
+    <script src="/javascripts/main.js"></script>
+</head>
+
+<body>
+    <div class="container center">
+        <div class="row">
+            <h5 class="center light-blue-text text-darken-1">
+                新增圖片
+            </h5>
+            <br />
+            <div id="upload-container">
+                <input type="file" name="file" id="fileInput" accept="image/*">
+                <input id="autocomplete" placeholder="輸入地址" type="text">
+                <button class="btn" id="btnUpload">Upload</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
