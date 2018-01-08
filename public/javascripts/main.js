@@ -11,22 +11,6 @@ window.onload = () => {
     firebase.initializeApp(config);
 
 
-
-    //initial Google mpas
-    var mapContainer = document.getElementById('map-container');
-    if (mapContainer) {
-        function initialize() {
-            new google.maps.places.Autocomplete(
-                (document.getElementById('autocomplete')), {
-                    types: ['geocode']
-                });
-        }
-
-        initialize();
-    }
-
-
-
     var textEmail = document.getElementById('textEmail');
     var textPassword = document.getElementById('textPassword');
     var btnSignUp = document.getElementById('btnSignUp');
@@ -40,10 +24,12 @@ window.onload = () => {
     firebase.auth().onAuthStateChanged(firebaseUser => {
         if (firebaseUser) {
             user = firebaseUser;
-            console.log(firebaseUser.uid);
+            console.log('已登入ID: ' + firebaseUser.uid);
+            console.log('EMAIL: ' + firebaseUser.email);
             userName.textContent = firebaseUser.email;
         } else {
-            console.log('Not logged in');
+            userName.textContent = '訪客';
+            console.log('尚未登入');
         }
     })
 
@@ -70,8 +56,11 @@ window.onload = () => {
         btnSignUp.addEventListener('click', e => {
             let email = textEmail.value;
             let password = textPassword.value;
-            reigster(email, password);
-            login(email, password);
+            register(email, password);
+            setTimeout(() => {
+                login(email, password);
+            }, 1000);
+            window.location.replace('/');
         })
     }
 
@@ -93,6 +82,7 @@ window.onload = () => {
         postRef.once('value', snapshot => {
             var allcard = '';
             snapshot.forEach(data => {
+                console.log(data.val().tag)
                 var card = `<div class="col s12 m6 l4">
                 <div class="card hoverable">
                   <div class="card-image">
@@ -110,7 +100,9 @@ window.onload = () => {
                       </span>
                       <br>
                       <span id="postTag">
-                      ${data.val().tag}
+                      ${data.val().tag[0]}、
+                      ${data.val().tag[1]}、
+                      ${data.val().tag[2]}
                       </span>
                     </p>
                   </div>
@@ -159,17 +151,51 @@ window.onload = () => {
             var postRef = firebase.database().ref('/');
             var photoRef = firebase.storage().ref('/' + user.uid + '/' + file.name);
             photoRef.put(file, { 'contentType': file.type }).then(snapshot => {
-                var post = {
-                    'author': user.uid,
-                    'photo': snapshot.downloadURL,
-                    'location': autocomplete.value,
-                    'tag': ['1', '2', '3']
-                }
-                postRef.push(post);
-                setTimeout(() => {
-                    alert('上傳成功');
-                    window.history.back();
-                }, 1000);
+                var post = {};
+                // vision api
+                var tag = [];
+                var subscriptionKey = "ad1ec4557f20403c803828b37f791a2d";
+                var uriBase = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/analyze";
+                var params = {
+                    "visualFeatures": "Description",
+                    "details": "",
+                    "language": "en",
+                };
+
+                $.ajax({
+                    url: uriBase + "?" + $.param(params),
+                    // Request headers.
+                    beforeSend: function (xhrObj) {
+                        xhrObj.setRequestHeader("Content-Type", "application/json");
+                        xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+                    },
+                    type: "POST",
+                    // Request body.
+                    data: '{"url": ' + '"' + snapshot.downloadURL + '"}',
+                })
+                    .done(function (data) {
+                        // Show formatted JSON on webpage.
+                        $("#responseTextArea").val(JSON.stringify(data, null, 2));
+                        tag = data.description.tags
+                        post = {
+                            'author': user.uid,
+                            'photo': snapshot.downloadURL,
+                            'location': autocomplete.value,
+                            'tag': tag
+                        }
+                        console.log(post)
+                        postRef.push(post);
+                        setTimeout(() => {
+                            alert('上傳成功');
+                            window.history.back();
+                        }, 500);
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        // Display error message.
+                        var errorString = (errorThrown === "") ? "Error. " : errorThrown + " (" + jqXHR.status + "): ";
+                        errorString += (jqXHR.responseText === "") ? "" : jQuery.parseJSON(jqXHR.responseText).message;
+                        alert(errorString);
+                    });
             })
 
         })

@@ -8,6 +8,9 @@ router.get('/', function(req, res) {
 router.get('/login', function(req, res) {
   res.render('login');
 })
+router.get('/analysis', function(req, res) {
+  res.render('analysis');
+})
 router.get('/register', function(req, res) {
   res.render('register');
 })

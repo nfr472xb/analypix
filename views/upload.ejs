@@ -11,12 +11,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/dropzone.css' />
-
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="/javascripts/materialize.min.js"></script>
     <script src="/javascripts/main.js"></script>
+    <script src="/javascripts/map.js"></script>
 </head>
 
 <body>
@@ -57,6 +57,7 @@
                     <div id="map-container">
                         <input id="autocomplete" placeholder="輸入地址" type="text">
                     </div>
+                    <div id="map-canvas" style="width:100%; height:200px; display:none;"></div>
                     <button class="btn" id="btnUpload">Upload</button>
                 </div>
             </div>
