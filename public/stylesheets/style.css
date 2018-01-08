@@ -42,3 +42,42 @@ li {font-weight: 600;}
 .add-file-container {
   min-height: 60%;
 }
+
+
+
+.card-image
+{
+
+  max-height: 256px;
+  max-width: 350px;
+  width: 100%;
+}
+
+
+#postPhoto  {
+
+  max-height: 256px;
+  max-width: 350px;
+  width: 100%;
+}
+
+.card
+
+{height: 370px;}
+
+
+.brand-logo {
+  padding-left: 50px !important;
+}
+
+
+ @media only screen and (max-width: 902px) {
+
+
+  
+.brand-logo {
+  padding-left: 0px !important;
+}
+
+ }
+

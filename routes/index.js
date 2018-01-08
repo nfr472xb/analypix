@@ -18,9 +18,13 @@ router.get('/upload', function(req, res) {
   res.render('upload');
 })
 router.get('/posts/:postId', function(req, res) {
-  res.render('');
+  res.render('posts', {postId: req.params});
 })
-router.get('/posts/:postId/related', function(req, res) {
-  res.render('');
+router.get('/location/:locationName', function(req, res) {
+  res.render('location', {location: req.params});
 })
+router.get('/tags/:tagName', function(req, res) {
+  res.render('tags', {tagName: req.params});
+})
+
 module.exports = router;

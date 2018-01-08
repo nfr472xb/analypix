@@ -16,6 +16,7 @@ window.onload = () => {
     var btnSignUp = document.getElementById('btnSignUp');
     var btnLogin = document.getElementById('btnLogin');
     var btnLogout = document.getElementById('btnLogout');
+    var addButton = document.getElementById('addButton');
     var userName = document.getElementById('userName');
     var user;
 
@@ -24,24 +25,23 @@ window.onload = () => {
     firebase.auth().onAuthStateChanged(firebaseUser => {
         if (firebaseUser) {
             user = firebaseUser;
-            console.log('已登入ID: ' + firebaseUser.uid);
-            console.log('EMAIL: ' + firebaseUser.email);
+            console.log('登入ID: ' + firebaseUser.uid);
+            console.log('登入EMAIL: ' + firebaseUser.email);
             userName.textContent = firebaseUser.email;
+            userName.setAttribute('href', '/users/' + firebaseUser.uid);
         } else {
             userName.textContent = '訪客';
+            userName.disable();
             console.log('尚未登入');
         }
     })
-
-
-
 
     function login(email, password) {
         firebase.auth().signInWithEmailAndPassword(email, password).catch(e => alert(e));
     }
 
     function register(email, password) {
-        firebase.auth().createUserWithEmailAndPassword(email, password).catch(e => console.log(e.message));
+        firebase.auth().createUserWithEmailAndPassword(email, password).catch(e => alert(e.message));
     }
 
     if (btnLogin) {
@@ -57,10 +57,7 @@ window.onload = () => {
             let email = textEmail.value;
             let password = textPassword.value;
             register(email, password);
-            setTimeout(() => {
-                login(email, password);
-            }, 1000);
-            window.location.replace('/');
+            setTimeout(() => { login(email, password); }, 1000);
         })
     }
 
@@ -75,13 +72,12 @@ window.onload = () => {
     var cardContainer = document.getElementById('card-container');
 
     if (cardContainer) {
-        var postAuthor = document.getElementById('postAuthor');
-        var postPhoto = document.getElementById('postPhoto');
         var postRef = firebase.database().ref('/');
 
         postRef.once('value', snapshot => {
             var allcard = '';
             snapshot.forEach(data => {
+
                 console.log(data.val().tag)
                 var card = `<div class="col s12 m6 l4">
                 <div class="card hoverable">
@@ -91,18 +87,19 @@ window.onload = () => {
                   <div class="card-content">
                     <p>
                       <span id="postAuthor">
-                      ${data.val().author}
+                      <a href="/users/${data.val().author}">${data.val().email}</a>
+                      
                       </span>
                       <br />
                       <span id="postLocation">
                         <i class="material-icons">location_on</i>
-                        ${data.val().location}
+                        <a href="/location/${data.val().location}">${data.val().location}</a>
                       </span>
                       <br>
                       <span id="postTag">
-                      ${data.val().tag[0]}、
-                      ${data.val().tag[1]}、
-                      ${data.val().tag[2]}
+                      <a href="/tags/${data.val().tag[0]}">${data.val().tag[0]}</a>、
+                      <a href="/tags/${data.val().tag[1]}">${data.val().tag[1]}</a>、
+                      <a href="/tags/${data.val().tag[2]}">${data.val().tag[2]}</a>
                       </span>
                     </p>
                   </div>
@@ -115,8 +112,6 @@ window.onload = () => {
         })
     }
     // index END
-
-
 
     // fileUpload START
     var file;
@@ -146,7 +141,7 @@ window.onload = () => {
             var loading = document.createElement('img');
             loading.src = 'https://loading.io/spinners/bluecat/lg.blue-longcat-spinner.gif';
             btnUpload.style.display = 'none';
-            uploadContainer.appendChild(loading);
+            uploadContainer.append(loading);
 
             var postRef = firebase.database().ref('/');
             var photoRef = firebase.storage().ref('/' + user.uid + '/' + file.name);
@@ -178,6 +173,7 @@ window.onload = () => {
                         $("#responseTextArea").val(JSON.stringify(data, null, 2));
                         tag = data.description.tags
                         post = {
+                            'email': user.email,
                             'author': user.uid,
                             'photo': snapshot.downloadURL,
                             'location': autocomplete.value,
@@ -197,9 +193,58 @@ window.onload = () => {
                         alert(errorString);
                     });
             })
-
         })
     }
     // fileUpload END
+
+    // user START
+    var userCardContainer = document.getElementById('user-card-container');
+
+    if (userCardContainer) {
+        var postRef = firebase.database().ref('/');
+
+        postRef.once('value', snapshot => {
+            var allcard = '';
+            snapshot.forEach(data => {
+
+                console.log(data.val())
+                var card = `<div class="col s12 m6 l4">
+                <div class="card hoverable">
+                  <div class="card-image">
+                    <img id="postPhoto" src="${data.val().photo}">
+                  </div>
+                  <div class="card-content">
+                    <p>
+                      <span id="postAuthor">
+                      <a href="/users/${data.val().author}">${data.val().email}</a>
+                      
+                      </span>
+                      <br />
+                      <span id="postLocation">
+                        <i class="material-icons">location_on</i>
+                        <a href="/location/${data.val().location}">${data.val().location}</a>
+                      </span>
+                      <br>
+                      <span id="postTag">
+                      <a href="/tags/${data.val().tag[0]}">${data.val().tag[0]}</a>、
+                      <a href="/tags/${data.val().tag[1]}">${data.val().tag[1]}</a>、
+                      <a href="/tags/${data.val().tag[2]}">${data.val().tag[2]}</a>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>`
+                    ;
+                allcard += card;
+            })
+            cardContainer.innerHTML = allcard;
+        })
+    }
+
+
+    // user END
+
+
+
 
 }//onload End
