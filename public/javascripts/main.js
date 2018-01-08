@@ -9,15 +9,24 @@ window.onload = () => {
         messagingSenderId: "896284143312"
     };
     firebase.initializeApp(config);
+
+
+
     //initial Google mpas
-    function initialize() {
-        new google.maps.places.Autocomplete(
-            (document.getElementById('autocomplete')), {
-                types: ['geocode']
-            });
+    var mapContainer = document.getElementById('map-container');
+    if (mapContainer) {
+        function initialize() {
+            new google.maps.places.Autocomplete(
+                (document.getElementById('autocomplete')), {
+                    types: ['geocode']
+                });
+        }
+
+        initialize();
     }
 
-    initialize();
+
+
     var textEmail = document.getElementById('textEmail');
     var textPassword = document.getElementById('textPassword');
     var btnSignUp = document.getElementById('btnSignUp');
@@ -37,22 +46,23 @@ window.onload = () => {
             console.log('Not logged in');
         }
     })
+
+
+
+
+    function login(email, password) {
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(e => alert(e));
+    }
+
+    function register(email, password) {
+        firebase.auth().createUserWithEmailAndPassword(email, password).catch(e => console.log(e.message));
+    }
+
     if (btnLogin) {
         btnLogin.addEventListener('click', e => {
-            var loading = document.createElement('img');
-            loading.src = 'https://loading.io/spinners/bluecat/lg.blue-longcat-spinner.gif';
-            btnLogin.style.display = 'none';
-            btnLogin.appendChild(loading);
-
             let email = textEmail.value;
             let password = textPassword.value;
-            let auth = firebase.auth();
-            let promise = auth.signInWithEmailAndPassword(email, password);
-            promise.catch(e => alert(e));
-            setTimeout(() => {
-                alert('登入成功');
-                window.history.back();
-            }, 500);
+            login(email, password);
         })
     }
 
@@ -60,21 +70,11 @@ window.onload = () => {
         btnSignUp.addEventListener('click', e => {
             let email = textEmail.value;
             let password = textPassword.value;
-            let auth = firebase.auth();
-            let promise = auth.createUserWithEmailAndPassword(email, password);
-            promise.catch(e => console.log(e.message));
-            var loading = document.createElement('img');
-            loading.src = 'https://loading.io/spinners/bluecat/lg.blue-longcat-spinner.gif';
-            btnSignUp.style.display = 'none';
-            btnSignUp.appendChild(loading);
-            let promise = firebase.auth().signInWithEmailAndPassword(email, password);
-            promise.catch(e => alert(e));
-            setTimeout(() => {
-                alert('註冊成功');
-                window.history.back();
-            }, 500);
+            reigster(email, password);
+            login(email, password);
         })
     }
+
     if (btnLogout) {
         btnLogout.addEventListener('click', e => {
             firebase.auth().signOut();
