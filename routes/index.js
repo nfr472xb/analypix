@@ -17,14 +17,14 @@ router.get('/register', function(req, res) {
 router.get('/upload', function(req, res) {
   res.render('upload');
 })
-router.get('/posts/:postId', function(req, res) {
-  res.render('posts', {postId: req.params});
+router.get('/post/:postId', function(req, res) {
+  res.render('post');
 })
 router.get('/location/:locationName', function(req, res) {
   res.render('location', {location: req.params});
 })
-router.get('/tags/:tagName', function(req, res) {
-  res.render('tags', {tagName: req.params});
+router.get('/tag/:tagName', function(req, res) {
+  res.render('tag');
 })
 
 module.exports = router;

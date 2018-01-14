@@ -5,12 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
+    <title>Analypix</title>
     <link rel='stylesheet' href='/stylesheets/materialize.min.css' />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel='stylesheet' href='/stylesheets/animate.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
     <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
     <script src="/javascripts/materialize.min.js"></script>
     <script src="/javascripts/main.js"></script>
@@ -25,7 +27,7 @@
                     <a href="/upload" class="btn-large" id="addButton">+</a>
                 </li>
                 <li>
-                    <a href="" id="userName"></a>
+                    <a href="" id="userName">訪客</a>
                 </li>
                 <li>
                     <a href="\login">登入</a>
@@ -40,24 +42,8 @@
         </div>
     </nav>
     <div class="container">
-        <div class="row">
-            <div class="col m3"></div>
-            <div class="col m6 center">
-                <h5 class="center light-blue-text text-darken-1">登入
-                </h5>
-                <div class="input-field col s12 m12">
-                    <label for='email'>信箱</label>
-                    <input class="validate" type="email" id="textEmail">
-                </div>
-                <div class="input-field col s12 m12">
-                    <label for='password'>密碼</label>
-                    <input type="password" id="textPassword">
-                </div>
-                <button id="btnLogin" class="btn waves-effect col s12">登入
-                    <i class="material-icons right">send</i>
-                </button>
-            </div>
-            <div class="col m3"></div>
+        <div class="row" id="tag-card-container">
+                <img class="center" src='https://loading.io/spinners/cutiefox/lg.cutie-fox-spinner.gif' />
         </div>
     </div>
 </body>
