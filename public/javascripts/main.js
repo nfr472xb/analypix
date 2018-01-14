@@ -38,7 +38,7 @@ window.onload = () => {
         firebase.auth().signInWithEmailAndPassword(email, password).catch(e => alert(e));
         setTimeout(() => {
             window.location = '/';
-        },1000)
+        },2000)
     }
 
     function register(email, password) {
