@@ -25,8 +25,6 @@ window.onload = () => {
     firebase.auth().onAuthStateChanged(firebaseUser => {
         if (firebaseUser) {
             user = firebaseUser;
-            console.log('登入ID: ' + firebaseUser.uid);
-            console.log('登入EMAIL: ' + firebaseUser.email);
             userName.textContent = firebaseUser.email;
             userName.setAttribute('href', '/users/' + firebaseUser.uid);
         } else {
@@ -38,7 +36,7 @@ window.onload = () => {
         firebase.auth().signInWithEmailAndPassword(email, password).catch(e => alert(e));
         setTimeout(() => {
             window.location = '/';
-        },2000)
+        }, 2000)
     }
 
     function register(email, password) {
@@ -85,17 +83,20 @@ window.onload = () => {
             var allcard = '';
             snapshot.forEach(data => {
                 var card = `<div class="col s12 m6 l4">
-                                <div class="card hoverable fadeIn">
-                                    <a href="/post/${data.val().postid}" class="card-image">
+                                <div class="card hoverable fadeIn animated fadeIn">
+                                    <a href="/post/${data.val().postid}" class="card-image center">
                                         <img id="postPhoto" src="${data.val().photo}">
                                     </a>
                                 <div class="card-content">
                       <span id="postAuthor">
-                      <a href="/users/${data.val().author}">${data.val().email}</a>
+                      <a href="/users/${data.val().author}">
+                        <i class="material-icons">face</i>${data.val().email}
+                      </a>
                       </span><br />
                       <span id="postLocation">
-                        <i class="material-icons">location_on</i>
-                        <a href="/location/${data.val().location}">${data.val().location}</a>
+                        <a href="/location/${data.val().location}">
+                            <i class="material-icons">location_on</i>${data.val().location}
+                        </a>
                       </span><br>
                       <ul id="postTag" class="tags">
                       <li><a href="/tag/${data.val().tag[0].name}">${data.val().tag[0].name}</a></li>
@@ -173,19 +174,23 @@ window.onload = () => {
                 })
                     .done(function (data) {
                         // Show formatted JSON on webpage.
-                        console.log(data)
                         $("#responseTextArea").val(JSON.stringify(data, null, 2));
-                        tag = data.tags
+
+                        var newPostKey = postRef.push().key;
                         post = {
-                            'postid': postRef.push().key,
+                            'postid': newPostKey,
                             'email': user.email,
                             'author': user.uid,
                             'photo': snapshot.downloadURL,
                             'location': autocomplete.value,
-                            'tag': tag
+                            'tag': data.tags
                         }
-                        console.log(post)
-                        postRef.push(post);
+
+                        var updates = {};
+                        updates['/post/' + newPostKey] = post;
+                        updates['/user-post/' + user.uid + '/' + newPostKey] = post;
+
+                        firebase.database().ref().update(updates);
                         setTimeout(() => {
                             alert('上傳成功');
                             window.history.back();
@@ -202,6 +207,54 @@ window.onload = () => {
     }
     // fileUpload END
 
+    // location relate post START
+    var locationCardContainer = document.getElementById('location-card-container');
+
+    if (locationCardContainer) {
+        var postRef = firebase.database().ref('/post');
+        var pathid = location.pathname.substring(10, location.pathname.length);
+        var count = 0;
+        postRef.once('value', snapshot => {
+            var allcard = '';
+            snapshot.forEach(data => {
+                if (pathid === data.val().location) {
+                    count++;
+                    var card = `<div class="col s12 m6 l4">
+                <div class="card hoverable fadeIn animated fadeIn">
+                    <a href="/post/${data.val().postid}" class="card-image center">
+                        <img id="postPhoto" src="${data.val().photo}">
+                    </a>
+                <div class="card-content">
+      <span id="postAuthor">
+      <a href="/users/${data.val().author}">
+        <i class="material-icons">face</i>${data.val().email}
+      </a>
+      </span><br />
+      <span id="postLocation">
+        <a href="/location/${data.val().location}">
+            <i class="material-icons">location_on</i>${data.val().location}
+        </a>
+      </span><br>
+      <ul id="postTag" class="tags">
+      <li><a href="/tag/${data.val().tag[0].name}">${data.val().tag[0].name}</a></li>
+      <li><a href="/tag/${data.val().tag[1].name}">${data.val().tag[1].name}</a></li>
+      </ul>
+  </div>
+</div>
+</div>`;
+                    allcard += card;
+                }
+            })
+            locationCardContainer.innerHTML = allcard;
+            var title = document.createElement('h2');
+            title.textContent = `${pathid}(${count})`;
+            title.className = "center light-blue-text text-darken-1 tags";
+            locationCardContainer.parentElement.append(title);
+            locationCardContainer.innerHTML = allcard;
+        })
+    }
+    // location relate post END
+
     // user START
     var userCardContainer = document.getElementById('user-card-container');
 
@@ -213,17 +266,20 @@ window.onload = () => {
             snapshot.forEach(data => {
                 if (pathid === data.val().author) {
                     var card = `<div class="col s12 m6 l4">
-                    <div class="card hoverable fadeIn">
-                        <a href="/post/${data.val().postid}" class="card-image">
+                    <div class="card hoverable fadeIn animated fadeIn">
+                        <a href="/post/${data.val().postid}" class="card-image center">
                             <img id="postPhoto" src="${data.val().photo}">
                         </a>
                     <div class="card-content">
           <span id="postAuthor">
-          <a href="/users/${data.val().author}">${data.val().email}</a>
+          <a href="/users/${data.val().author}">
+            <i class="material-icons">face</i>${data.val().email}
+          </a>
           </span><br />
           <span id="postLocation">
-            <i class="material-icons">location_on</i>
-            <a href="/location/${data.val().location}">${data.val().location}</a>
+            <a href="/location/${data.val().location}">
+                <i class="material-icons">location_on</i>${data.val().location}
+            </a>
           </span><br>
           <ul id="postTag" class="tags">
           <li><a href="/tag/${data.val().tag[0].name}">${data.val().tag[0].name}</a></li>
@@ -238,8 +294,6 @@ window.onload = () => {
             userCardContainer.innerHTML = allcard;
         })
     }
-
-
     // user END
 
 
@@ -249,28 +303,40 @@ window.onload = () => {
     if (singleCardContainer) {
         var postRef = firebase.database().ref('/post');
         var pathid = location.pathname.substring(6, location.pathname.length);
-        console.log(pathid)
+
         postRef.once('value', snapshot => {
             var allcard = '';
             snapshot.forEach(data => {
                 if (pathid === data.val().postid) {
                     var card = `<div class="col s12 m6 l4">
-                    <div class="card hoverable fadeIn">
-                        <a href="/post/${data.val().postid}" class="card-image">
+                    <div class="card hoverable animated fadeIn" id="singleCard">
+                        <a href="/post/${data.val().postid}" class="card-image center">
                             <img id="postPhoto" src="${data.val().photo}">
                         </a>
                     <div class="card-content">
           <span id="postAuthor">
-          <a href="/users/${data.val().author}">${data.val().email}</a>
+          <a href="/users/${data.val().author}">
+            <i class="material-icons">face</i>${data.val().email}
+          </a>
           </span><br />
           <span id="postLocation">
-            <i class="material-icons">location_on</i>
-            <a href="/location/${data.val().location}">${data.val().location}</a>
+            <a href="/location/${data.val().location}">
+                <i class="material-icons">location_on</i>${data.val().location}
+            </a>
           </span><br>
           <ul id="postTag" class="tags">
           <li><a href="/tag/${data.val().tag[0].name}">${data.val().tag[0].name}</a></li>
           <li><a href="/tag/${data.val().tag[1].name}">${data.val().tag[1].name}</a></li>
           </ul>
+          <div class="card-action">
+          <div class="input-field row">
+          <label for='comment'>留言</label>
+          <input type="text" id="comment" class="col m10"/>
+          <button id="btnSendComment" class="btn waves-effect col m2">send</button>
+        </div>
+        <ul id="postMsg"><img src='https://loading.io/spinners/pinkpig/index.pink-pig-ajax-loader.gif' /></ul>
+        </div>
+    
       </div>
     </div>
   </div>`;
@@ -278,6 +344,41 @@ window.onload = () => {
                 }
             })
             singleCardContainer.innerHTML = allcard;
+
+            var comment = document.getElementById('comment');
+            var btnSendComment = document.getElementById('btnSendComment');
+            var postMsg = document.getElementById('postMsg')
+            function sendComment() {
+                var newKey = postRef.push().key;
+                post = {
+                    name: user.email,
+                    msg: comment.value
+                };
+                var updates = {};
+                updates['/post/' + pathid + '/comment/' + newKey + '/'] = post;
+                updates['/user-post/' + user.uid + '/' + pathid + '/comment/' + newKey + '/'] = post;
+                firebase.database().ref().update(updates);
+                comment.value = null;
+            }
+
+            comment.addEventListener('keyup', e => {
+                if (e.key === 'Enter') {
+                    sendComment();
+                }
+            })
+            btnSendComment.addEventListener('click', e => {
+                sendComment();
+            })
+
+            // user comment listenr
+            firebase.database().ref('/post/' + pathid + '/comment/').on('value', snapshot => {
+                var allMsg = '';
+                snapshot.forEach(data => {
+                    var msg = `<li>${data.val().name} : <em>${data.val().msg}</em></li>`;
+                    allMsg += msg;
+                })
+                postMsg.innerHTML = allMsg;
+            })
         })
     }
     // single post END
@@ -285,7 +386,6 @@ window.onload = () => {
 
 
     // tag relate post START
-
     var tagCardContainer = document.getElementById('tag-card-container');
 
     if (tagCardContainer) {
@@ -299,8 +399,8 @@ window.onload = () => {
                     count++;
                     var card = `<div class="col s12 m6 l4">
                     <div class="card hoverable fadeIn">
-                        <a href="/post/${data.val().postid}" class="card-image">
-                            <img id="postPhoto" src="${data.val().photo}">
+                        <a href="/post/${data.val().postid}" class="card-image center">
+                            <img id="postPhoto" class="center" src="${data.val().photo}">
                         </a>
                     <div class="card-content">
           <span id="postAuthor">
@@ -327,8 +427,11 @@ window.onload = () => {
             tagCardContainer.innerHTML = allcard;
         })
     }
+}
+// tag relate post END
 
-    // tag relate post END
 
 
-}//onload End
+
+
+//onload END

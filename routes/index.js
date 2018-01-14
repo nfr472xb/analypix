@@ -21,7 +21,7 @@ router.get('/post/:postId', function(req, res) {
   res.render('post');
 })
 router.get('/location/:locationName', function(req, res) {
-  res.render('location', {location: req.params});
+  res.render('location');
 })
 router.get('/tag/:tagName', function(req, res) {
   res.render('tag');
