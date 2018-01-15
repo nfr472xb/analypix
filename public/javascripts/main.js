@@ -87,7 +87,7 @@ window.onload = () => {
             snapshot.forEach(data => {
                 var card = `<div class="col s12 m6 l4">
                                 <div class="card hoverable fadeIn animated fadeIn">
-                                    <a href="/post/${data.val().postid}" class="card-image center">
+                                    <a href="/post/${data.val().postid}" class="card-image waves-effect waves-block waves-light center">
                                         <img id="postPhoto" src="${data.val().photo}">
                                     </a>
                                 <div class="card-content card-bottom">
@@ -219,6 +219,8 @@ window.onload = () => {
     }
     // fileUpload END
 
+
+
     // location relate post START
     var locationCardContainer = document.getElementById('location-card-container');
 
@@ -233,7 +235,7 @@ window.onload = () => {
                     count++;
                     var card = `<div class="col s12 m6 l4">
                 <div class="card hoverable fadeIn animated fadeIn">
-                    <a href="/post/${data.val().postid}" class="card-image center">
+                    <a href="/post/${data.val().postid}" class="card-image waves-effect waves-block waves-light center">
                         <img id="postPhoto" src="${data.val().photo}">
                     </a>
                 <div class="card-content">
@@ -288,7 +290,7 @@ window.onload = () => {
                 if (pathid === data.val().author) {
                     var card = `<div class="col s12 m6 l4">
                     <div class="card hoverable fadeIn animated fadeIn">
-                        <a href="/post/${data.val().postid}" class="card-image center">
+                        <a href="/post/${data.val().postid}" class="card-image waves-effect waves-block waves-light center">
                             <img id="postPhoto" src="${data.val().photo}">
                         </a>
                     <div class="card-content">
@@ -340,7 +342,7 @@ window.onload = () => {
                 if (pathid === data.val().postid) {
                     var card = `<div class="col s12 m6 l4">
                     <div class="card hoverable animated fadeIn" id="singleCard">
-                        <a href="/post/${data.val().postid}" class="card-image center">
+                        <a href="/post/${data.val().postid}" class="card-image waves-effect waves-block waves-light center">
                             <img id="postPhoto" src="${data.val().photo}">
                         </a>
                     <div class="card-content">
@@ -370,8 +372,8 @@ window.onload = () => {
           <div class="card-action">
           <div class="input-field row">
           <label for='comment'>留言</label>
-          <input type="text" id="comment" class="col m10"/>
-          <button id="btnSendComment" class="btn waves-effect col m2">send</button>
+          <input type="text" id="comment" >
+          <button  style="display:none" id="btnSendComment" class="btn waves-effect col m2">回應</button>
         </div>
         <ul id="postMsg"><img src='https://loading.io/spinners/pinkpig/index.pink-pig-ajax-loader.gif' /></ul>
         </div>
@@ -438,7 +440,7 @@ window.onload = () => {
                     count++;
                     var card = `<div class="col s12 m6 l4">
                     <div class="card hoverable fadeIn">
-                        <a href="/post/${data.val().postid}" class="card-image center">
+                        <a href="/post/${data.val().postid}" class="card-image waves-effect waves-block waves-light center">
                             <img id="postPhoto" class="center" src="${data.val().photo}">
                         </a>
                     <div class="card-content">
