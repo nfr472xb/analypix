@@ -178,3 +178,10 @@ li {font-weight: 600;}
 .tags a:hover:before {
 	border-color:transparent #555 transparent transparent;
 }
+
+
+.card-bottom {
+	position: absolute;
+	bottom: 0px;
+	width: 100% !important;
+}

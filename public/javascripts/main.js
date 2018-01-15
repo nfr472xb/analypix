@@ -36,7 +36,6 @@ window.onload = () => {
         firebase.auth().signInWithEmailAndPassword(email, password).catch(e => alert(e));
         setTimeout(() => {  
             window.location = '/';
-            session.setAttribute("loginuser",email);
         }, 2000)
 
     }
@@ -91,7 +90,7 @@ window.onload = () => {
                                     <a href="/post/${data.val().postid}" class="card-image center">
                                         <img id="postPhoto" src="${data.val().photo}">
                                     </a>
-                                <div class="card-content">
+                                <div class="card-content card-bottom">
                       <span id="postAuthor">
                       <a href="/users/${data.val().author}">
                         <i class="material-icons">face</i>${data.val().email}
@@ -102,10 +101,19 @@ window.onload = () => {
                             <i class="material-icons">location_on</i>${data.val().location}
                         </a>
                       </span><br>
-                      <ul id="postTag" class="tags">
-                      <li><a href="/tag/${data.val().tag[0].name}">${data.val().tag[0].name}</a></li>
-                      <li><a href="/tag/${data.val().tag[1].name}">${data.val().tag[1].name}</a></li>
-                      </ul>
+                      <div class="right">
+
+                      <a href="/tag/${data.val().tag[0].name}">
+                      <div class="chip">
+                    ${data.val().tag[0].name}
+                    </div></a>
+                    
+                    <a href="/tag/${data.val().tag[0].name}">
+                    <div class="chip">
+                    ${data.val().tag[1].name}
+                  </div></a>
+
+                  </div>
                   </div>
                 </div>
               </div>`;
@@ -239,10 +247,19 @@ window.onload = () => {
             <i class="material-icons">location_on</i>${data.val().location}
         </a>
       </span><br>
-      <ul id="postTag" class="tags">
-      <li><a href="/tag/${data.val().tag[0].name}">${data.val().tag[0].name}</a></li>
-      <li><a href="/tag/${data.val().tag[1].name}">${data.val().tag[1].name}</a></li>
-      </ul>
+   <div class="right">
+
+                      <a href="/tag/${data.val().tag[0].name}">
+                      <div class="chip">
+                    ${data.val().tag[0].name}
+                    </div></a>
+                    
+                    <a href="/tag/${data.val().tag[0].name}">
+                    <div class="chip">
+                    ${data.val().tag[1].name}
+                  </div></a>
+                  
+                  </div>
   </div>
 </div>
 </div>`;
@@ -285,10 +302,19 @@ window.onload = () => {
                 <i class="material-icons">location_on</i>${data.val().location}
             </a>
           </span><br>
-          <ul id="postTag" class="tags">
-          <li><a href="/tag/${data.val().tag[0].name}">${data.val().tag[0].name}</a></li>
-          <li><a href="/tag/${data.val().tag[1].name}">${data.val().tag[1].name}</a></li>
-          </ul>
+          <div class="right">
+
+          <a href="/tag/${data.val().tag[0].name}">
+          <div class="chip">
+        ${data.val().tag[0].name}
+        </div></a>
+        
+        <a href="/tag/${data.val().tag[0].name}">
+        <div class="chip">
+        ${data.val().tag[1].name}
+      </div></a>
+      
+      </div>
       </div>
     </div>
   </div>`;
@@ -328,10 +354,19 @@ window.onload = () => {
                 <i class="material-icons">location_on</i>${data.val().location}
             </a>
           </span><br>
-          <ul id="postTag" class="tags">
-          <li><a href="/tag/${data.val().tag[0].name}">${data.val().tag[0].name}</a></li>
-          <li><a href="/tag/${data.val().tag[1].name}">${data.val().tag[1].name}</a></li>
-          </ul>
+          <div class="right">
+
+                      <a href="/tag/${data.val().tag[0].name}">
+                      <div class="chip">
+                    ${data.val().tag[0].name}
+                    </div></a>
+                    
+                    <a href="/tag/${data.val().tag[0].name}">
+                    <div class="chip">
+                    ${data.val().tag[1].name}
+                  </div></a>
+                  
+                  </div>
           <div class="card-action">
           <div class="input-field row">
           <label for='comment'>留言</label>
@@ -414,10 +449,19 @@ window.onload = () => {
             <i class="material-icons">location_on</i>
             <a href="/location/${data.val().location}">${data.val().location}</a>
           </span><br>
-          <ul id="postTag" class="tags">
-          <li><a href="/tag/${data.val().tag[0].name}">${data.val().tag[0].name}</a></li>
-          <li><a href="/tag/${data.val().tag[1].name}">${data.val().tag[1].name}</a></li>
-          </ul>
+         <div class="right">
+
+                      <a href="/tag/${data.val().tag[0].name}">
+                      <div class="chip">
+                    ${data.val().tag[0].name}
+                    </div></a>
+                    
+                    <a href="/tag/${data.val().tag[0].name}">
+                    <div class="chip">
+                    ${data.val().tag[1].name}
+                  </div></a>
+                  
+                  </div>
       </div>
     </div>
   </div>`;

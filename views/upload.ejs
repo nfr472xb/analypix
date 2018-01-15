@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-        <%- include header %>
+  <%- include header %>
 
 <body>
         <%- include nav %>
@@ -14,7 +14,18 @@
                 </h5>
                 <br />
                 <div id="upload-container">
-                    <input type="file" name="file" id="fileInput" accept="image/*">
+
+                        <div class="file-field input-field">
+                                <div class="btn">
+                                  <span>File</span>
+                                  <input type="file" name="file" id="fileInput" accept="image/*">
+                                </div>
+                                <div class="file-path-wrapper">
+                                  <input class="file-path validate" type="text">
+                                </div>
+                              </div>
+                              
+
                     <div id="map-container">
                         <input id="autocomplete" placeholder="輸入地址" type="text">
                     </div>
