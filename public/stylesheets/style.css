@@ -185,3 +185,9 @@ li {font-weight: 600;}
 	bottom: 0px;
 	width: 100% !important;
 }
+
+.card-action 
+{
+
+	top: 50px;
+}

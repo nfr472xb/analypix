@@ -90,19 +90,23 @@ window.onload = () => {
                                     <a href="/post/${data.val().postid}" class="card-image waves-effect waves-block waves-light center">
                                         <img id="postPhoto" src="${data.val().photo}">
                                     </a>
-                                <div class="card-content card-bottom">
-                      <span id="postAuthor">
-                      <a href="/users/${data.val().author}">
-                        <i class="material-icons">face</i>${data.val().email}
-                      </a>
-                      </span><br />
-                      <span id="postLocation">
-                        <a href="/location/${data.val().location}">
-                            <i class="material-icons">location_on</i>${data.val().location}
-                        </a>
-                      </span><br>
-                      <div class="right">
 
+                                    <a href="/location/${data.val().location}">    
+                             <div class=" grey-text text-darken-3 grey lighten-4 id=" postlocation"="" style=" padding-top: 25px; padding-bottom: 25px; ">      
+                          <i class="grey-text text-darken-3 material-icons">location_on</i>${data.val().location}
+                          </div>
+                            </a>
+                   
+                    
+                                <div class="card-content card-bottom">
+
+                      <div class="right">
+                      <a href="/users/${data.val().author}">
+                      <div class="chip light-blue lighten-2 white-text">
+                           <i class="material-icons" style=" position:  absolute; margin-top: 3px;">face</i>
+                           <div style="margin-left: 30px;">${data.val().email} </div>
+                       </div>
+                 </a>
                       <a href="/tag/${data.val().tag[0].name}">
                       <div class="chip">
                     ${data.val().tag[0].name}
@@ -239,17 +243,20 @@ window.onload = () => {
                         <img id="postPhoto" src="${data.val().photo}">
                     </a>
                 <div class="card-content">
-      <span id="postAuthor">
-      <a href="/users/${data.val().author}">
-        <i class="material-icons">face</i>${data.val().email}
-      </a>
-      </span><br />
+    
       <span id="postLocation">
         <a href="/location/${data.val().location}">
             <i class="material-icons">location_on</i>${data.val().location}
         </a>
       </span><br>
    <div class="right">
+
+   <a href="/users/${data.val().author}">
+   <div class="chip light-blue lighten-2 white-text">
+        <i class="material-icons" style=" position:  absolute; margin-top: 3px;">face</i>
+        <div style="margin-left: 30px;">${data.val().email} </div>
+    </div>
+</a>
 
                       <a href="/tag/${data.val().tag[0].name}">
                       <div class="chip">
@@ -293,19 +300,19 @@ window.onload = () => {
                         <a href="/post/${data.val().postid}" class="card-image waves-effect waves-block waves-light center">
                             <img id="postPhoto" src="${data.val().photo}">
                         </a>
+                        <a href="/location/${data.val().location}">    
+                        <div class=" grey-text text-darken-3 grey lighten-4 id=" postlocation"="" style=" padding-top: 25px; padding-bottom: 25px; ">      
+                     <i class="grey-text text-darken-3 material-icons">location_on</i>${data.val().location}
+                     </div>
+                       </a>
                     <div class="card-content">
-          <span id="postAuthor">
-          <a href="/users/${data.val().author}">
-            <i class="material-icons">face</i>${data.val().email}
-          </a>
-          </span><br />
-          <span id="postLocation">
-            <a href="/location/${data.val().location}">
-                <i class="material-icons">location_on</i>${data.val().location}
-            </a>
-          </span><br>
           <div class="right">
-
+          <a href="/users/${data.val().author}">
+          <div class="chip light-blue lighten-2 white-text">
+               <i class="material-icons" style=" position:  absolute; margin-top: 3px;">face</i>
+               <div style="margin-left: 30px;">${data.val().email} </div>
+           </div>
+     </a>
           <a href="/tag/${data.val().tag[0].name}">
           <div class="chip">
         ${data.val().tag[0].name}
@@ -346,18 +353,31 @@ window.onload = () => {
                             <img id="postPhoto" src="${data.val().photo}">
                         </a>
                     <div class="card-content">
-          <span id="postAuthor">
-          <a href="/users/${data.val().author}">
-            <i class="material-icons">face</i>${data.val().email}
-          </a>
-          </span><br />
-          <span id="postLocation">
-            <a href="/location/${data.val().location}">
-                <i class="material-icons">location_on</i>${data.val().location}
-            </a>
-          </span><br>
-          <div class="right">
 
+                    <div class="row">
+                    <div class="grid-example col s12 m6"><span class="flow-text">
+
+                 
+
+                    <div class="grid-example col s12 m6"><span class="flow-text">
+                    <a href="/location/${data.val().location}">
+                    <i class="material-icons">location_on</i>${data.val().location}
+                </a>
+                    </span></div>
+                  </div>
+          
+                  
+       
+
+
+
+          <div class="right">
+          <a href="/users/${data.val().author}">
+          <div class="chip light-blue lighten-2 white-text">
+               <i class="material-icons" style=" position:  absolute; margin-top: 3px;">face</i>
+               <div style="margin-left: 30px;">${data.val().email} </div>
+           </div>
+     </a>
                       <a href="/tag/${data.val().tag[0].name}">
                       <div class="chip">
                     ${data.val().tag[0].name}
@@ -443,15 +463,22 @@ window.onload = () => {
                         <a href="/post/${data.val().postid}" class="card-image waves-effect waves-block waves-light center">
                             <img id="postPhoto" class="center" src="${data.val().photo}">
                         </a>
+                        <a href="/location/${data.val().location}">    
+                        <div class=" grey-text text-darken-3 grey lighten-4 id=" postlocation"="" style=" padding-top: 25px; padding-bottom: 25px; ">      
+                     <i class="grey-text text-darken-3 material-icons">location_on</i>${data.val().location}
+                     </div>
+                       </a>
                     <div class="card-content">
-          <span id="postAuthor">
-          <a href="/users/${data.val().author}">${data.val().email}</a>
-          </span><br />
-          <span id="postLocation">
-            <i class="material-icons">location_on</i>
-            <a href="/location/${data.val().location}">${data.val().location}</a>
-          </span><br>
+      
+
          <div class="right">
+
+         <a href="/users/${data.val().author}">
+         <div class="chip light-blue lighten-2 white-text">
+              <i class="material-icons" style=" position:  absolute; margin-top: 3px;">face</i>
+              <div style="margin-left: 30px;">${data.val().email} </div>
+          </div>
+    </a>
 
                       <a href="/tag/${data.val().tag[0].name}">
                       <div class="chip">
