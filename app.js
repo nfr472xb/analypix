@@ -5,9 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
 var app = express();
 
 // view engine setup
@@ -21,8 +18,76 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+
+
+
+app.get('/users/:userId', function(req, res) {
+    res.render('users', {
+        title: 'Users'
+    });
+
+
+  });
+
+  
+
+
+app.get('/', function (req, res) {
+
+    res.render('index', {
+        title: 'Analypix'
+    });
+
+  });
+
+app.get('/post/:postId', function(req, res) {
+    res.render('post', {
+      title: 'Post'
+  });
+  })
+
+app.get('/upload', function(req, res) {
+    res.render('Upload', {
+      title: 'Upload'
+  });
+  })
+
+
+  app.get('/login', function(req, res) {
+    res.render('Login', {
+      title: 'Login'
+  });
+  })
+  app.get('/analysis', function(req, res) {
+    res.render('Aegister', {
+      title: 'Aegister'
+  });
+  })
+  app.get('/register', function(req, res) {
+    res.render('Register', {
+      title: 'Register'
+  });
+  })
+  app.get('/upload', function(req, res) {
+    res.render('Upload', {
+      title: 'Upload'
+  });
+  })
+  
+  app.get('/location/:locationName', function(req, res) {
+    res.render('Location', {
+      title: 'Location'
+  });
+  })
+  app.get('/tag/:tagName', function(req, res) {
+    res.render('Tag', {
+      title: 'Tag'
+  });
+  })
+  
+
+
+  
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
