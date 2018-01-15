@@ -34,9 +34,11 @@ window.onload = () => {
 
     function login(email, password) {
         firebase.auth().signInWithEmailAndPassword(email, password).catch(e => alert(e));
-        setTimeout(() => {
+        setTimeout(() => {  
             window.location = '/';
+            session.setAttribute("loginuser",email);
         }, 2000)
+
     }
 
     function register(email, password) {
@@ -52,6 +54,7 @@ window.onload = () => {
             let email = textEmail.value;
             let password = textPassword.value;
             login(email, password);
+            
         })
     }
 
@@ -63,6 +66,7 @@ window.onload = () => {
             setTimeout(() => {
                 login(email, password);
             }, 500);
+            var loginsession = email;
         })
     }
 
